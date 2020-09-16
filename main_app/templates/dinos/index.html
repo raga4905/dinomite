@@ -4,20 +4,20 @@
 <h1>Dinosaur List</h1>
 
 {% for dino in dinos %}
-<div class="card">
-    <a href=href="{% url 'detail' dino.id %}">
+<a href="{% url 'detail' dino.id %}">
+    <div class="card">
         <div class="card-content">
             <span class="card-title">{{ dino.name }}</span>
-            <p>Dinosaurs are cool: {{ dino.fun_pun }}</p>
             <p>Description: {{ dino.description }}</p>
+            <p>Dinosaurs are cool: {{ dino.fun_pun }}</p>
             <!-- {% if cat.age > 0 %}
         <p>Age: {{ cat.age }}</p>
         {% else %}
         <p>Age: Kitten</p>
         {% endif %} -->
         </div>
-    </a>
-</div>
+    </div>
+</a>
 {% endfor %}
 
 {% endblock %}

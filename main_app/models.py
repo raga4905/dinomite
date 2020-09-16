@@ -1,6 +1,12 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
+LOCATIONS = (
+    ('H', 'Horizon'), 
+    ('B', 'Backyard'), 
+    ('P', 'From a Plane')
+)
 
 class Dino(models.Model):
     name = models.CharField(max_length=100)
@@ -10,17 +16,18 @@ class Dino(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'dino_id': self.id})
 
-# class Dino:
-#     def __init__(self, name, fun_pun, description):
-#         self.name = name
-#         self.fun_pun = fun_pun
-#         self.description = description
+class Sighting(models.Model):
+    date = models.DateField('sighting date')
+    location = models.CharField(
+        max_length=1,
+        choices=LOCATIONS, 
+        default=LOCATIONS[0][0]
+    )
 
+    dino = models.ForeignKey(Dino, on_delete=models.CASCADE)
 
-# dinos = [
-#     Dino('Pterodactyl', 'What is the scariest type of dinosaur? A Terror-dactyl.',
-#          'winged lizard, pointy head'),
-#     Dino('Tyrannosaurus', 'What do you call it when a dinossaur has a car accident? A tyrannosaurus wreck!',
-#          'Big head, little arms')
-# ]
+    def __str__(self):
+        return f"{self.get_location_display()} on {self.date}"

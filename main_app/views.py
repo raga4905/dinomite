@@ -1,12 +1,10 @@
 from django.shortcuts import render
-
-# Create your views here.
-from django.http import HttpResponse
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Dino
 
 
 def home(request):
-    return HttpResponse('<h1>Dinos are cool</h1>')
+    return render(request, 'home.html')
 
 
 def about(request):
@@ -19,3 +17,15 @@ def dinos_index(request):
 def dinos_detail(request, dino_id):
     dino = Dino.objects.get(id=dino_id)
     return render(request, 'dinos/detail.html', {'dino': dino })
+
+class DinoCreate(CreateView):
+    model = Dino
+    fields = '__all__'
+
+class DinoUpdate(UpdateView):
+    model = Dino 
+    fields = ['name', 'description']
+
+class DinoDelete(DeleteView):
+    model = Dino
+    success_url = '/dinos/'
