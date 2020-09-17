@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Dinosaur List</h1>
+<h1 class="green-text">Dinosaur List</h1>
 
 {% for dino in dinos %}
 <a href="{% url 'detail' dino.id %}">
-    <div class="card">
+    <div class="card black-text">
         <div class="card-content">
-            <span class="card-title">{{ dino.name }}</span>
+            <span class="card-title purple-text text-darken-3">{{ dino.name }}</span>
             <p>Description: {{ dino.description }}</p>
             <p>Dinosaurs are cool: {{ dino.fun_pun }}</p>
             <!-- {% if cat.age > 0 %}

@@ -17,12 +17,23 @@
                 {% endif %} -->
             </div>
             <div class="card-action">
-                <a href="{% url 'dinos_update' dino.id %}">Edit</a>
-                <a href="{% url 'dinos_delete' dino.id %}">Delete</a>
+                <a class="(#ffca28 amber darken-3)-text white" href="{% url 'dinos_update' dino.id %}">Edit</a>
+                <a class="(#ffca28 amber darken-3)-text white" href="{% url 'dinos_delete' dino.id %}">Delete</a>
             </div>
         </div>
     </div>
     <div class="col s6">
+        <form action="{% url 'add_sighting' dino.id %}" method="post">
+            {% csrf_token %}
+            {{ sighting_form.as_p }}
+            <input type="submit" class="#ffca28 amber darken-3 btn" value="Add Sighting">
+        </form>
+        <br>
+        {% if dino.seen_recently %}
+            <div class="card-panel purple-text center-align">{{dino.name}} has probably set up a home terf nearby</div>
+        {% else %}
+            <div class="card-panel red-text center-align">{{dino.name}} might have left</div>
+        {% endif %}
         <table class="striped">
             <thead>
                 <tr>
@@ -42,5 +53,16 @@
     </div>
 </div>
 
+<script>
+    const dateEl = document.getElementById('id_date');
+    M.Datepicker.init(dateEl, {
+        format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true
+    });
+    const selectEl = document.getElementById('id_location');
+    M.FormSelect.init(selectEl);
+</script>
 
-    {% endblock %}
+{% endblock %}

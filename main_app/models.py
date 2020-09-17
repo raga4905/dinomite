@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date
 
 # Create your models here.
 LOCATIONS = (
@@ -19,6 +20,9 @@ class Dino(models.Model):
     def get_absolute_url(self):
         return reverse('detail', kwargs={'dino_id': self.id})
 
+    def seen_recently(self):
+        return self.sighting_set.filter(date=date.today()).count() >= len(LOCATIONS)
+
 class Sighting(models.Model):
     date = models.DateField('sighting date')
     location = models.CharField(
@@ -31,3 +35,6 @@ class Sighting(models.Model):
 
     def __str__(self):
         return f"{self.get_location_display()} on {self.date}"
+
+    class Meta:
+        ordering = ['-date']
