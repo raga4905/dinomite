@@ -9,10 +9,21 @@ LOCATIONS = (
     ('P', 'From a Plane')
 )
 
+
+class Pet(models.Model):
+  name = models.CharField(max_length=50)
+
+  def __str__(self):
+    return self.name
+
+  def get_absolute_url(self):
+    return reverse('pets_detail', kwargs={'pk': self.id})
+
 class Dino(models.Model):
     name = models.CharField(max_length=100)
     fun_pun = models.TextField(max_length=350)
     description = models.TextField(max_length=250)
+    pets = models.ManyToManyField(Pet)
 
     def __str__(self):
         return self.name
