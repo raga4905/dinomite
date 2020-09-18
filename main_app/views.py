@@ -7,7 +7,7 @@ from .forms import SightingForm
 
 class DinoCreate(CreateView):
     model = Dino
-    fields = '__all__'
+    fields = ['name', 'fun_pun', 'description']
 
 
 class DinoUpdate(UpdateView):

@@ -3,21 +3,37 @@
 
 <h1 class="green-text">Dinosaur List</h1>
 
-{% for dino in dinos %}
+<!-- {% for dino in dinos %}
 <a href="{% url 'detail' dino.id %}">
     <div class="card black-text">
         <div class="card-content">
             <span class="card-title purple-text text-darken-3">{{ dino.name }}</span>
             <p>Description: {{ dino.description }}</p>
             <p>Dinosaurs are cool: {{ dino.fun_pun }}</p>
-            <!-- {% if cat.age > 0 %}
-        <p>Age: {{ cat.age }}</p>
-        {% else %}
-        <p>Age: Kitten</p>
-        {% endif %} -->
         </div>
     </div>
 </a>
-{% endfor %}
+{% endfor %} -->
+
+<div class="col s12 m7">
+    {% for dino in dinos %}
+    <div class="card horizontal">
+        <div class="card-image">
+            <img src="https://lorempixel.com/100/190/nature/6" >
+        </div>
+        <div class="card-stacked">
+            <div class="card-content">
+                <span class="card-title purple-text text-darken-3">{{ dino.name }}</span>
+                <p>Description: {{ dino.description }}</p>
+                <p>Dinosaurs are cool: {{ dino.fun_pun }}</p>
+            </div>
+            <div class="card-action">
+                <a href="{% url 'detail' dino.id %}">More Info</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
 {% endblock %}
+
